@@ -16,8 +16,27 @@ public:
 
 	void Display();
 
-	void DrawPolygon();
+	void Update();
+
+	void DrawRectangle();
+
+	void DrawSquare();
 
 	void DrawTriangle();
+
+	void RotateRect();
+
+	void RotateTri();
+
+	void RotateSqu();
+
+	void RotationIncrements();
+
+
+
+private:
+	float triRotation;
+	float squRotation;
+	float rectRotation;
 };
 

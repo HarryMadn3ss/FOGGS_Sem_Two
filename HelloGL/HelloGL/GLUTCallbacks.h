@@ -7,5 +7,8 @@ namespace GLUTCallbacks
 	void init(HelloGL* gl);
 
 	void Display();
+
+	void Timer(int preferredRefresh);
+
 };
 
