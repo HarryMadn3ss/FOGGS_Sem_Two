@@ -19,5 +19,9 @@ public:
 	void DrawPolygon();
 
 	void DrawTriangle();
+
+	void DrawBatmanTriangles();
+
+	void DrawBatmanPolygons();
 };
 
