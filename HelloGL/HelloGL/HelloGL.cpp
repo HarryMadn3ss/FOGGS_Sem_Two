@@ -14,7 +14,9 @@ HelloGL::HelloGL(int argc,char* argv[])
 	//
 	GLUTCallbacks::init(this);
 	glutInit(&argc, argv);
+	glutInitDisplayMode(GLUT_DOUBLE);
 	glutInitWindowSize(800, 800);
+	glutInitWindowPosition(100, 100);
 	glutCreateWindow("Simple OpenGL Program");
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
@@ -47,12 +49,14 @@ void HelloGL::Display()
 	glPopMatrix();
 
 	glFlush(); //flushes the scene drawn to the graphics card
+	glutSwapBuffers();
 }
 
 void HelloGL::Update()
 {
 	RotationIncrements();
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
+		
 }
 
 void HelloGL::DrawRectangle()
