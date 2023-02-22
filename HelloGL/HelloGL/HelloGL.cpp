@@ -20,6 +20,7 @@ HelloGL::HelloGL(int argc,char* argv[])
 	glutCreateWindow("Simple OpenGL Program");
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
+	glutKeyboardFunc(GLUTCallbacks::Keyboard);
 	glutMainLoop();
 }
 
@@ -57,6 +58,18 @@ void HelloGL::Update()
 	RotationIncrements();
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		
+}
+
+void HelloGL::Keyboard(unsigned char key, int x, int y)
+{
+	if (key == 'd')
+	{
+		squRotation += 0.5f;
+	}
+	if (key == 'a')
+	{
+		squRotation -= 0.5f;
+	}
 }
 
 void HelloGL::DrawRectangle()
