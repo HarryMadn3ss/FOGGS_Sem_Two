@@ -21,6 +21,13 @@ HelloGL::HelloGL(int argc,char* argv[])
 	glutDisplayFunc(GLUTCallbacks::Display);
 	glutTimerFunc(REFRESHRATE, GLUTCallbacks::Timer, REFRESHRATE);
 	glutKeyboardFunc(GLUTCallbacks::Keyboard);
+	glMatrixMode(GL_PROJECTION);
+	glLoadIdentity();
+	// set the veiwport over the entire window
+	glViewport(0, 0, 800, 800);
+	// set correct perpective
+	gluPerspective(45, 1, 0, 1000);
+	glMatrixMode(GL_MODELVIEW);
 	glutMainLoop();
 }
 
@@ -55,6 +62,9 @@ void HelloGL::Display()
 
 void HelloGL::Update()
 {
+	glLoadIdentity();
+
+	glTranslatef(0.0f, 0.0f, -5.0f);
 	RotationIncrements();
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		
