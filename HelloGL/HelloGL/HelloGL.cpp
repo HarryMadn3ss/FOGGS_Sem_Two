@@ -1,10 +1,15 @@
 #include "HelloGL.h"
-#define REFRESHRATE 16
+
 
 
 
 HelloGL::HelloGL(int argc,char* argv[])
 {
+	camera = new Camera();
+	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 5.0f;
+	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
+	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
+
 	//variable constructs
 	triRotation = 0.0f;
 	squRotation = 0.0f;
@@ -33,7 +38,7 @@ HelloGL::HelloGL(int argc,char* argv[])
 
 HelloGL::~HelloGL(void)
 {
-
+	delete camera;
 }
 
 void HelloGL::Display()
@@ -42,7 +47,10 @@ void HelloGL::Display()
 
 	glPushMatrix();
 	
-	RotateRect();
+	glRotatef(triRotation, 1.0f, 0.0f, 0.0f);
+	DrawCube();
+
+	/*RotateRect();
 	DrawRectangle();
 	glEnd();
 
@@ -52,7 +60,7 @@ void HelloGL::Display()
 
 	RotateSqu();
 	DrawSquare();
-	glEnd();
+	glEnd();*/
 
 	glPopMatrix();
 
@@ -63,6 +71,9 @@ void HelloGL::Display()
 void HelloGL::Update()
 {
 	glLoadIdentity();
+	gluLookAt(camera->eye.x, camera->eye.y, camera->eye.z,
+		camera->center.x, camera->center.y, camera->center.z,
+		camera->up.x, camera->up.y, camera->up.z);
 
 	glTranslatef(0.0f, 0.0f, -5.0f);
 	RotationIncrements();
@@ -158,4 +169,9 @@ void HelloGL::RotateTri()
 void HelloGL::RotateSqu()
 {
 	glRotatef(squRotation, 1.0f, 0.0f, 0.0f);
+}
+
+void HelloGL::DrawCube()
+{
+	glutWireCube(5);
 }

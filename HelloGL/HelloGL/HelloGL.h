@@ -5,6 +5,18 @@
 #include "GL\freeglut.h"
 #include "GLUTCallbacks.h"
 
+#define REFRESHRATE 16
+
+struct Vector3
+{
+	float x, y, z;
+};
+
+struct Camera
+{
+	Vector3 eye, center, up;
+};
+
 
 class HelloGL
 {
@@ -34,11 +46,14 @@ public:
 
 	void RotationIncrements();
 
+	void DrawCube();
 
 
 private:
 	float triRotation;
 	float squRotation;
 	float rectRotation;
+
+	Camera* camera;
 };
 
