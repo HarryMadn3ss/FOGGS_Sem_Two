@@ -85,11 +85,29 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 {
 	if (key == 'd')
 	{
-		squRotation += 0.5f;
+		//squRotation += 0.5f;
+		camera->eye.x += 0.1f;
 	}
 	if (key == 'a')
 	{
-		squRotation -= 0.5f;
+		//squRotation -= 0.5f;
+		camera->eye.x -= 0.1f;
+	}
+	if (key == 'w')
+	{
+		camera->eye.z -= 0.1f;
+	}
+	if (key == 's')
+	{
+		camera->eye.z += 0.1f;
+	}
+	if (key == ' ')
+	{
+		camera->eye.y += 0.1f;
+	}
+	if (key == 'c')
+	{
+		camera->eye.y -= 0.1f;
 	}
 }
 
