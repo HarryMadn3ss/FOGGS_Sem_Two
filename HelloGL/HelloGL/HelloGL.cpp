@@ -10,6 +10,9 @@ HelloGL::HelloGL(int argc,char* argv[])
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
+	cube = new DrawCube();
+	
+
 	//variable constructs
 	triRotation = 0.0f;
 	squRotation = 0.0f;
@@ -47,10 +50,11 @@ void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glPushMatrix();
+	/*glPushMatrix();*/
 	
 	glRotatef(triRotation, 1.0f, 0.0f, 0.0f);
-	DrawCube();
+
+	DrawCube::DrawCubeArray();
 
 	/*RotateRect();
 	DrawRectangle();
@@ -64,7 +68,7 @@ void HelloGL::Display()
 	DrawSquare();
 	glEnd();*/
 
-	glPopMatrix();
+	/*glPopMatrix();*/
 
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();

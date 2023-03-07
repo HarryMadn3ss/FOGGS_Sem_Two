@@ -4,6 +4,7 @@
 #include <gl/GLU.h>
 #include "GL\freeglut.h"
 #include "GLUTCallbacks.h"
+#include "DrawCube.h"
 
 #define REFRESHRATE 16
 
