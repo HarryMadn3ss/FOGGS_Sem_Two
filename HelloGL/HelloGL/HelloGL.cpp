@@ -1,6 +1,60 @@
 #include "HelloGL.h"
 
+Vertex HelloGL::vertices[] = { 1, 1, 1,	-1, 1, 1,	-1, -1, 1, //v0-v1-v1 (front)
+							-1, -1, 1,	1, -1, 1,	1, 1, 1, //v2-v3-v0
 
+								1, 1, 1,	1, -1, 1,	1, -1, -1, //v0-v3-v4 (right)
+								1, -1, -1,	1, 1, -1,	1, 1, 1, //v4-v5-v0
+
+								1, 1, 1,	1, 1, -1, -1, 1, -1, //v0-v5-v6 (top)
+								-1, 1, -1,	-1, 1, 1,	1, 1, 1, //v6-v1-v0
+
+								-1, 1, 1,	-1, 1, -1,	-1, -1, -1, //v1-v6-v7 (left)
+								-1, -1, -1,	-1, -1, 1,	-1, 1, 1, //v7-v2-v1
+
+								-1, -1, -1,	1, -1, -1,	1, -1, 1, //v7-v4-v3 (bottom)
+								1, -1, 1,	-1, -1, 1,	-1, -1, -1, //v3-v2-v7
+
+								1, -1, -1,	-1, -1, -1,	-1, 1, -1, //v4-v7-v3 (back)
+								-1, 1, -1, 1, 1, -1,	1, -1, -1 }; //v6-v5-v4
+
+Color HelloGL::colors[] = { 1, 1, 1,	1, 1, 0,	1, 0, 0,
+							1, 0, 0,	1, 0, 1,	1, 1, 1,
+
+							1, 1, 1,	1, 0, 1,	0, 0, 1,
+							0, 0 , 1,	0, 1, 1,	1, 1, 1,
+
+							1, 1, 1,	0, 1, 1,	0, 1, 0,
+							0, 1, 0,	1, 1, 0,	1, 1, 1,
+
+							1, 1, 0,	0, 1, 1,	0, 1, 0,
+							0, 0, 0,	1, 0, 0,	1, 1, 0,
+
+							0, 0, 0,	0, 0 , 1,	1, 0, 1,
+							1, 0, 1,	1, 0, 0,	0, 0, 0,
+
+							0, 0, 1,	0, 0, 0,	0, 1, 0,
+							0, 1, 0,	0, 1, 1,	0, 0, 1 };
+
+
+
+//indexed
+Vertex HelloGL::indexedVertices[] = {1, 1, 1,	-1, 1, 1, //v0-v1
+									-1, -1, 1,	1, -1, 1, //v2-v3
+									1, -1, -1,	1, 1, -1, //v4-v5
+									-1, 1, -1,	-1, -1, -1};
+
+Color HelloGL::indexedColors[] = {1, 1, 1,	1, 1, 0,
+								1, 0, 0,	1, 0, 1,
+								0, 0, 1,	0, 1, 1,
+								0, 1, 0,	0, 0, 0};
+
+GLushort HelloGL::indices[] = { 0, 1, 2,	2, 3, 0,	//front
+								0, 3, 4,	4, 5, 0,	//right
+								0, 5, 6,	6, 1, 0,	//top
+								1, 6, 7,	7, 2, 1,	//left
+								7, 4, 3,	3, 2, 7,	//bottom
+								4, 7, 6,	6, 5, 4};	//back
 
 
 HelloGL::HelloGL(int argc,char* argv[])
@@ -9,6 +63,9 @@ HelloGL::HelloGL(int argc,char* argv[])
 	camera->eye.x = 0.0f; camera->eye.y = 0.0f; camera->eye.z = 5.0f;
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
+
+
+	
 
 	//variable constructs
 	triRotation = 0.0f;
@@ -50,8 +107,19 @@ void HelloGL::Display()
 	glPushMatrix();
 	
 	glRotatef(triRotation, 1.0f, 0.0f, 0.0f);
-	DrawCube();
 
+
+	/*glBegin(GL_TRIANGLES);
+
+	for (int i = 0; i < 36; i++)
+	{
+		glColor3fv(&colors[i].r);
+		glVertex3fv(&vertices[i].x);
+	}*/
+
+	DrawIndexedCube();
+	
+	glEnd();
 	/*RotateRect();
 	DrawRectangle();
 	glEnd();
@@ -289,5 +357,23 @@ void HelloGL::DrawCube()
 	glVertex3f(1, -1, -1);
 
 	glEnd();
+
+}
+
+void HelloGL::DrawIndexedCube()
+{
+	glPushMatrix();
+
+	glBegin(GL_TRIANGLES);
+
+	for (int i = 0; i < 36; i++)
+	{
+		glColor3fv(&indexedColors[indices[i]].r);
+		glVertex3fv(&indexedVertices[indices[i]].x);
+	}
+
+	glEnd();
+
+	glPopMatrix();
 
 }

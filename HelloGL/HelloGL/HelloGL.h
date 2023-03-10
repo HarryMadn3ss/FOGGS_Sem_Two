@@ -5,6 +5,7 @@
 #include "GL\freeglut.h"
 #include "GLUTCallbacks.h"
 
+
 #define REFRESHRATE 16
 
 struct Vector3
@@ -15,6 +16,16 @@ struct Vector3
 struct Camera
 {
 	Vector3 eye, center, up;
+};
+
+struct Color
+{
+	GLfloat r, g, b;
+};
+
+struct Vertex
+{
+	GLfloat x, y, z;
 };
 
 
@@ -48,11 +59,20 @@ public:
 
 	void DrawCube();
 
+	void DrawIndexedCube();
+
 
 private:
 	float triRotation;
 	float squRotation;
 	float rectRotation;
+
+	static Vertex vertices[];
+	static Color colors[];
+
+	static Vertex indexedVertices[];
+	static Color indexedColors[];
+	static GLushort indices[];
 
 	Camera* camera;
 };
