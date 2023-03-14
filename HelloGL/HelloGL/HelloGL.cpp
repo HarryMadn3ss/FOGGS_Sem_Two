@@ -101,8 +101,11 @@ void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
+	for (int i = 0; i < OBJECTARRAY; i++)
+	{
+		cube[i]->Draw();
+	}
 	
-	cube->Draw();
 		
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();
@@ -118,7 +121,12 @@ void HelloGL::Update()
 		camera->up.x, camera->up.y, camera->up.z);
 	
 	glTranslatef(0.0f, 0.0f, -5.0f);
-	cube->Update();
+
+	for (int i = 0; i < OBJECTARRAY; i++)
+	{
+		cube[i]->Update();
+	}
+	
 	
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		

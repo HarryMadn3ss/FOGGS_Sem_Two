@@ -27,7 +27,7 @@ private:
 
 	Camera* camera;
 		
-	Cube* cube;
+	Cube* cube[OBJECTARRAY];
 
 
 public:

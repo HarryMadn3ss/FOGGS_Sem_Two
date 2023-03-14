@@ -22,6 +22,8 @@ Cube::Cube(float x, float y, float z)
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
+
+	_rotation = 0.0f;
 }
 
 Cube::~Cube()
