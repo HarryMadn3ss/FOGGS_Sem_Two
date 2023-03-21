@@ -4,23 +4,25 @@
 #include <string>
 
 
-Vertex* Cube::indexedVertices = nullptr;
+//Vertex* Cube::indexedVertices = nullptr;
+//
+//Color* Cube::indexedColors = nullptr;
+//
+//GLushort* Cube::indices = nullptr;
+//
+//int Cube::numVertices = 0;
+//int Cube::numColors = 0;
+//int Cube::numIndices = 0;
 
-Color* Cube::indexedColors = nullptr;
-
-GLushort* Cube::indices = nullptr;
-
-int Cube::numVertices = 0;
-int Cube::numColors = 0;
-int Cube::numIndices = 0;
-
-Cube::Cube(float x, float y, float z)
+Cube::Cube(Mesh* mesh, float x, float y, float z)
 {
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
 
 	_rotation = 0.0f;
+
+	_mesh = mesh;
 }
 
 Cube::~Cube()
@@ -31,7 +33,7 @@ Cube::~Cube()
 void Cube::Draw()
 {
 	
-	if (indexedVertices != nullptr && indexedColors != nullptr && indices != nullptr)
+	if (_mesh->vertices != nullptr && _mesh->colors != nullptr && _mesh->indices != nullptr)
 	{
 		glPushMatrix();
 
@@ -42,8 +44,8 @@ void Cube::Draw()
 
 		for (int i = 0; i < 36; i++)
 		{
-			glColor3fv(&indexedColors[indices[i]].r);
-			glVertex3fv(&indexedVertices[indices[i]].x);
+			glColor3fv(&_mesh->colors[_mesh->indices[i]].r);
+			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
 		}
 	
 		glEnd();
@@ -60,40 +62,3 @@ void Cube::Update()
 	_rotation += 0.5f;
 }
 
-bool Cube::Load(char* path)
-{
-	std::ifstream inFile;
-	inFile.open(path);
-
-	if (!inFile.good())
-	{
-		std::cerr << "Failed to Load TextFile!" << path << std::endl;
-		return false;
-	}
-
-	inFile >> numVertices;
-	indexedVertices = new Vertex[numVertices];	
-	for (int i = 0; i < numVertices; i++)
-	{		
-		inFile >> indexedVertices[i].x;
-		inFile >> indexedVertices[i].y;
-		inFile >> indexedVertices[i].z;				
-	}
-	inFile >> numColors;
-	indexedColors = new Color[numColors];
-	for (int i = 0; i < numColors; i++)
-	{
-		inFile >> indexedColors[i].r;
-		inFile >> indexedColors[i].g;
-		inFile >> indexedColors[i].b;
-	}
-	inFile >> numIndices;
-	indices = new GLushort[numIndices];
-	for (int i = 0; i < numIndices; i++)
-	{
-		inFile >> indices[i];
-	}
-
-	inFile.close();
-	return true;
-}

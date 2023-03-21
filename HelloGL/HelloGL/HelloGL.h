@@ -1,12 +1,13 @@
 #pragma once
-#include <windows.h>
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include "GL\freeglut.h"
-#include "GLUTCallbacks.h"
-#include "Structures.h"
-#include "Cube.h"
 
+#include <ctime>
+#include <cstdlib>
+
+
+#include "MeshLoader.h"
+#include "GLUTCallbacks.h"
+
+#include "Cube.h"
 
 #define REFRESHRATE 16
 
@@ -42,7 +43,9 @@ public:
 
 	void Keyboard(unsigned char key, int x, int y);
 	
+	void InitObjects();
 
+	void InitGL(int argc, char* argv[]);
 
 
 };
