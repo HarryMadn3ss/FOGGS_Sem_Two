@@ -8,6 +8,7 @@
 #include "GLUTCallbacks.h"
 
 #include "Cube.h"
+#include "StaticObject.h"
 
 #define REFRESHRATE 16
 
@@ -28,7 +29,7 @@ private:
 
 	Camera* camera;
 		
-	Cube* cube[OBJECTARRAY];
+	SceneObject* objects[OBJECTARRAY];
 
 
 public:

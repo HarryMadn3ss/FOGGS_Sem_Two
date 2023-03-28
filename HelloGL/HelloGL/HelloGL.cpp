@@ -19,7 +19,7 @@ HelloGL::~HelloGL(void)
 
 	for (int i = 0; i < OBJECTARRAY; i++)
 	{
-		delete cube[i];
+		delete objects[i];
 	}
 	
 }
@@ -33,7 +33,7 @@ void HelloGL::Display()
 
 	for (int i = 0; i < OBJECTARRAY; i++)
 	{
-		cube[i]->Draw();
+		objects[i]->Draw();
 	}
 	
 		
@@ -49,10 +49,15 @@ void HelloGL::InitObjects()
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
 	Mesh* cubeMesh = MeshLoader::Load((char*)"txtFiles/cube.txt");
+	Mesh* staticMesh = MeshLoader::Load((char*)"txtFiles/pyramid.txt");
 
-	for (int i = 0; i < OBJECTARRAY; i++)
+	for (int i = 0; i < (OBJECTARRAY / 2); i++)
 	{
-		cube[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
+		objects[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
+	}
+	for (int i = (OBJECTARRAY / 2); i < OBJECTARRAY; i++)
+	{
+		objects[i] = new StaticObject(staticMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
 	}
 
 	//variable constructs
@@ -97,7 +102,7 @@ void HelloGL::Update()
 
 	for (int i = 0; i < OBJECTARRAY; i++)
 	{
-		cube[i]->Update();
+		objects[i]->Update();
 	}
 	
 	

@@ -1,36 +1,25 @@
-#include "Cube.h"
-#include <iostream>
-#include <fstream>
-#include <string>
+#include "StaticObject.h"
 
 
-
-
-Cube::Cube(Mesh* mesh, float x, float y, float z) : SceneObject(mesh)
+StaticObject::StaticObject(Mesh* mesh, float x, float y, float z) : SceneObject(mesh)
 {
 	_position.x = x;
 	_position.y = y;
 	_position.z = z;
-
-	_rotation = 0.0f;
-
-	
 }
 
-Cube::~Cube()
+StaticObject::~StaticObject()
 {
 
 }
 
-void Cube::Draw()
+void StaticObject::Draw()
 {
-	
 	if (_mesh->vertices != nullptr && _mesh->colors != nullptr && _mesh->indices != nullptr)
 	{
 		glPushMatrix();
 
 		glTranslatef(_position.x, _position.y, _position.z);
-		glRotatef(_rotation, 1.0f, 1.0f, 1.0f);
 
 		glBegin(GL_TRIANGLES);
 
@@ -39,18 +28,15 @@ void Cube::Draw()
 			glColor3fv(&_mesh->colors[_mesh->indices[i]].r);
 			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
 		}
-	
-		glEnd();
 
-	
+		glEnd();
 
 		glPopMatrix();
 	}
-	
 }
 
-void Cube::Update()
+void StaticObject::Update()
 {
-	_rotation += 0.5f;
+
 }
 

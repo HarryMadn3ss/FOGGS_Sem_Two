@@ -1,14 +1,13 @@
 #pragma once
 
 #include "Structures.h"
+#include "SceneObject.h"
 
 #define OBJECTARRAY 200
 
-class Cube
+class Cube : public SceneObject
 {
-private:
-
-	Mesh* _mesh;
+private:	
 
 	Vector3 _position;
 
@@ -20,7 +19,6 @@ public:
 
 	void Draw();
 	void Update();
-
-	static bool Load(char* path);
+		
 };
 
