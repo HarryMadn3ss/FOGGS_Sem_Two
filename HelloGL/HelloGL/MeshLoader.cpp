@@ -28,15 +28,6 @@ namespace MeshLoader
 		}
 	}
 
-	void LoadColours(ifstream& inFile, Mesh& mesh)
-	{
-		//TODO: LOAD COLOURS
-	}
-
-	void LoadIndices(ifstream& inFile, Mesh& mesh)
-	{
-		//TODO: Load Indices
-	}
 
 	Mesh* MeshLoader::Load(char* path)
 	{
@@ -68,6 +59,14 @@ namespace MeshLoader
 			inFile >> mesh->colors[i].r;
 			inFile >> mesh->colors[i].g;
 			inFile >> mesh->colors[i].b;
+		}
+		inFile >> mesh->texCoordCount;
+		mesh->texCoords = new TexCoord[mesh->texCoordCount];
+		for (int i = 0; i < mesh->texCoordCount; i++)
+		{
+			inFile >> mesh->texCoords[i].u;
+			inFile >> mesh->texCoords[i].v;
+			
 		}
 		inFile >> mesh->indexCount;
 		mesh->indices = new GLushort[mesh->indexCount];

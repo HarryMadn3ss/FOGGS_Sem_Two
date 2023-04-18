@@ -1,7 +1,7 @@
 #include "StaticObject.h"
 
 
-StaticObject::StaticObject(Mesh* mesh, float x, float y, float z) : SceneObject(mesh)
+StaticObject::StaticObject(Mesh* mesh, float x, float y, float z) : SceneObject(mesh, nullptr)
 {
 	_position.x = x;
 	_position.y = y;

@@ -22,6 +22,7 @@ HelloGL::~HelloGL(void)
 		delete objects[i];
 	}
 	
+	
 }
 
 void HelloGL::Display()
@@ -48,12 +49,20 @@ void HelloGL::InitObjects()
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"txtFiles/cube.txt");
-	Mesh* staticMesh = MeshLoader::Load((char*)"txtFiles/pyramid.txt");
+	Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
+	Texture2D* texture = new Texture2D();
+	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
+
+	Mesh* staticMesh = MeshLoader::Load((char*)"files/txtFiles/pyramid.txt");
+
+	glEnable(GL_TEXTURE_2D);
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 
 	for (int i = 0; i < (OBJECTARRAY / 2); i++)
 	{
-		objects[i] = new Cube(cubeMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
+		objects[i] = new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
 	}
 	for (int i = (OBJECTARRAY / 2); i < OBJECTARRAY; i++)
 	{
