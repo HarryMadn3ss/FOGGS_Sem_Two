@@ -54,6 +54,8 @@ void HelloGL::InitObjects()
 	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
 
 	Mesh* staticMesh = MeshLoader::Load((char*)"files/txtFiles/pyramid.txt");
+	Texture2D* starsTexture = new Texture2D();
+	texture->Load((char*)"files/textures.Stars.raw", 512, 512);
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -66,7 +68,7 @@ void HelloGL::InitObjects()
 	}
 	for (int i = (OBJECTARRAY / 2); i < OBJECTARRAY; i++)
 	{
-		objects[i] = new StaticObject(staticMesh, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
+		objects[i] = new StaticObject(staticMesh, starsTexture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
 	}
 
 	//variable constructs

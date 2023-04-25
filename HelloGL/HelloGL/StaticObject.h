@@ -1,17 +1,18 @@
 #pragma once
 #include "SceneObject.h"
+#include "Structures.h"
 
 class StaticObject : public SceneObject
 {
 protected:
-
+	Vector3 _position;
 
 private:
 
-	Vector3 _position;
+	
 
 public:
-	StaticObject(Mesh* mesh, float x, float y, float z);
+	StaticObject(Mesh* mesh, Texture2D* texture, float x, float y, float z);
 	~StaticObject();
 
 	void Draw();

@@ -8,8 +8,10 @@ using namespace std;
 namespace MeshLoader
 {
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
-	void LoadColours(ifstream& inFile, Mesh& mesh);
+	void LoadColors(ifstream& inFile, Mesh& mesh);  
+	void LoadTextures(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
+
 
 	void LoadVertices(ifstream& inFile, Mesh& mesh)
 	{
@@ -28,6 +30,44 @@ namespace MeshLoader
 		}
 	}
 
+	void LoadColors(ifstream& inFile, Mesh& mesh)
+	{
+		inFile >> mesh.colorCount;
+		if (mesh.colorCount > 0)
+		{
+			mesh.colors = new Color[mesh.colorCount];
+			for (int i = 0; i < mesh.colorCount; i++)
+			{
+				inFile >> mesh.colors[i].r;
+				inFile >> mesh.colors[i].g;
+				inFile >> mesh.colors[i].b;
+			}
+		}
+		
+	}
+	
+	void LoadTextures(ifstream& inFile, Mesh& mesh)
+	{
+		inFile >> mesh.texCoordCount;
+		mesh.texCoords = new TexCoord[mesh.texCoordCount];
+		for (int i = 0; i < mesh.texCoordCount; i++)
+		{
+			inFile >> mesh.texCoords[i].u;
+			inFile >> mesh.texCoords[i].v;
+
+		}
+	}
+
+	void LoadIndices(ifstream& inFile, Mesh& mesh)
+	{
+		inFile >> mesh.indexCount;
+		mesh.indices = new GLushort[mesh.indexCount];
+		for (int i = 0; i < mesh.indexCount; i++)
+		{
+			inFile >> mesh.indices[i];
+		}
+	}
+
 
 	Mesh* MeshLoader::Load(char* path)
 	{
@@ -42,9 +82,18 @@ namespace MeshLoader
 			cerr  << "Can't open texture file " << path << endl;
 			return nullptr;
 		}
+		else
+		{
+			LoadVertices(inFile, *mesh);
+			LoadColors(inFile, *mesh);
+			LoadTextures(inFile, *mesh);		
+			LoadIndices(inFile, *mesh);
+		}
+
+		inFile.close();
 		
 
-		inFile >> mesh->vertexCount;
+		/*inFile >> mesh->vertexCount;
 		mesh->vertices = new Vertex[mesh->vertexCount];
 		for (int i = 0; i < mesh->vertexCount; i++)
 		{
@@ -75,7 +124,7 @@ namespace MeshLoader
 			inFile >> mesh->indices[i];
 		}
 
-		inFile.close();
+		inFile.close();*/
 		
 
 

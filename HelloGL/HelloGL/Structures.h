@@ -33,7 +33,8 @@ struct TexCoord
 };
 
 struct Mesh
-{
+{	
+
 	int vertexCount, colorCount,texCoordCount, indexCount;
 
 	Vertex* vertices;
