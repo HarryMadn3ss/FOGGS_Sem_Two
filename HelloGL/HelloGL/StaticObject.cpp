@@ -1,7 +1,7 @@
 #include "StaticObject.h"
 
 
-StaticObject::StaticObject(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+StaticObject::StaticObject(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, nullptr)
 {
 	_position.x = x;
 	_position.y = y;
@@ -30,7 +30,7 @@ void StaticObject::Draw()
 		for (int i = 0; i < 36; i++)
 		{
 			glColor3fv(&_mesh->colors[_mesh->indices[i]].r);			
-			glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
+			//glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
 			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
 		}
 

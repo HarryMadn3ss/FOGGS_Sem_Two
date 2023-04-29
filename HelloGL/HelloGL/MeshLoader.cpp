@@ -85,7 +85,7 @@ namespace MeshLoader
 		else
 		{
 			LoadVertices(inFile, *mesh);
-			LoadColors(inFile, *mesh);
+			LoadColors(inFile, *mesh);			
 			LoadTextures(inFile, *mesh);		
 			LoadIndices(inFile, *mesh);
 		}
