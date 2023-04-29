@@ -8,7 +8,7 @@ using namespace std;
 namespace MeshLoader
 {
 	void LoadVertices(ifstream& inFile, Mesh& mesh);
-	void LoadColors(ifstream& inFile, Mesh& mesh);  
+	void LoadNormals(ifstream& inFile, Mesh& mesh);  
 	void LoadTextures(ifstream& inFile, Mesh& mesh);
 	void LoadIndices(ifstream& inFile, Mesh& mesh);
 
@@ -30,17 +30,17 @@ namespace MeshLoader
 		}
 	}
 
-	void LoadColors(ifstream& inFile, Mesh& mesh)
+	void LoadNormals(ifstream& inFile, Mesh& mesh)
 	{
-		inFile >> mesh.colorCount;
-		if (mesh.colorCount > 0)
+		inFile >> mesh.normalCount;
+		if (mesh.normalCount > 0)
 		{
-			mesh.colors = new Color[mesh.colorCount];
-			for (int i = 0; i < mesh.colorCount; i++)
+			mesh.normals = new Vector3[mesh.normalCount];
+			for (int i = 0; i < mesh.normalCount; i++)
 			{
-				inFile >> mesh.colors[i].r;
-				inFile >> mesh.colors[i].g;
-				inFile >> mesh.colors[i].b;
+				inFile >> mesh.normals[i].x;
+				inFile >> mesh.normals[i].y;
+				inFile >> mesh.normals[i].z;
 			}
 		}
 		
@@ -84,49 +84,13 @@ namespace MeshLoader
 		}
 		else
 		{
-			LoadVertices(inFile, *mesh);
-			LoadColors(inFile, *mesh);			
-			LoadTextures(inFile, *mesh);		
+			LoadVertices(inFile, *mesh);					
+			LoadTextures(inFile, *mesh);
+			LoadNormals(inFile, *mesh);			
 			LoadIndices(inFile, *mesh);
 		}
 
 		inFile.close();
-		
-
-		/*inFile >> mesh->vertexCount;
-		mesh->vertices = new Vertex[mesh->vertexCount];
-		for (int i = 0; i < mesh->vertexCount; i++)
-		{
-			inFile >> mesh->vertices[i].x;
-			inFile >> mesh->vertices[i].y;
-			inFile >> mesh->vertices[i].z;
-		}
-		inFile >> mesh->colorCount;
-		mesh->colors = new Color[mesh->colorCount];
-		for (int i = 0; i < mesh->colorCount; i++)
-		{
-			inFile >> mesh->colors[i].r;
-			inFile >> mesh->colors[i].g;
-			inFile >> mesh->colors[i].b;
-		}
-		inFile >> mesh->texCoordCount;
-		mesh->texCoords = new TexCoord[mesh->texCoordCount];
-		for (int i = 0; i < mesh->texCoordCount; i++)
-		{
-			inFile >> mesh->texCoords[i].u;
-			inFile >> mesh->texCoords[i].v;
-			
-		}
-		inFile >> mesh->indexCount;
-		mesh->indices = new GLushort[mesh->indexCount];
-		for (int i = 0; i < mesh->indexCount; i++)
-		{
-			inFile >> mesh->indices[i];
-		}
-
-		inFile.close();*/
-		
-
 
 		return mesh;
 	}

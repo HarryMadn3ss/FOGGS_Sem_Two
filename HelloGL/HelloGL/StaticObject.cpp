@@ -15,7 +15,7 @@ StaticObject::~StaticObject()
 
 void StaticObject::Draw()
 {
-	if (_mesh->vertices != nullptr && _mesh->colors != nullptr && _mesh->indices != nullptr)
+	if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
 	{
 		glBindTexture(GL_TEXTURE_2D, _texture->GetID());
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -28,9 +28,9 @@ void StaticObject::Draw()
 		glBegin(GL_TRIANGLES);
 
 		for (int i = 0; i < 36; i++)
-		{
-			glColor3fv(&_mesh->colors[_mesh->indices[i]].r);			
-			//glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
+		{						
+			glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
+			glNormal3fv(&_mesh->normals[_mesh->indices[i]].x);
 			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
 		}
 

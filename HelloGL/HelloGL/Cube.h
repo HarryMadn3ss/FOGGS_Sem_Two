@@ -3,7 +3,7 @@
 #include "Structures.h"
 #include "SceneObject.h"
 
-#define OBJECTARRAY 200
+
 
 class Cube : public SceneObject
 {
@@ -13,12 +13,15 @@ private:
 
 	GLfloat _rotation;
 
+	Material* _material;
+
 public:
 	Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z);
 	~Cube();
 
 	void Draw();
 	void Update();
+	void DefineMaterial();
 		
 };
 

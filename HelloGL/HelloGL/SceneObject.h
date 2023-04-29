@@ -2,6 +2,7 @@
 #include "Structures.h"
 #include "Texture2D.h"
 
+#define OBJECTARRAY 200
 
 class SceneObject
 {

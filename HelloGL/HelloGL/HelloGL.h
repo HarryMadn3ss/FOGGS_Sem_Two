@@ -15,6 +15,8 @@
 
 class HelloGL
 {
+protected:
+
 private:
 	float triRotation;
 	float squRotation;
@@ -24,6 +26,9 @@ private:
 		
 	SceneObject* objects[OBJECTARRAY];
 
+	//lighting
+	Vector4* _lightPosition;
+	Lighting* _lightData;
 
 public:
 
@@ -40,6 +45,8 @@ public:
 	void InitObjects();
 
 	void InitGL(int argc, char* argv[]);
+
+	void InitLighting();
 
 
 };
