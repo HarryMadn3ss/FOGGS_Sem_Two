@@ -5,6 +5,8 @@
 #include "GL\freeglut.h"
 
 
+class SceneObject;
+
 class HelloGL;
 
 struct Vector3
@@ -55,4 +57,10 @@ struct Material
 {
 	Vector4 ambient, diffuse, specular;
 	GLfloat shininess;
+};
+
+struct ListNode
+{
+	SceneObject* object;
+	ListNode* next;
 };

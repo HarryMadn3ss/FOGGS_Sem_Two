@@ -9,6 +9,7 @@
 
 #include "Cube.h"
 #include "StaticObject.h"
+#include "LinkedList.h"
 
 #define REFRESHRATE 16
 
@@ -24,7 +25,10 @@ private:
 
 	Camera* camera;
 		
-	SceneObject* objects[OBJECTARRAY];
+	//SceneObject* objects[OBJECTARRAY];
+
+	LinkedList* objectList;
+	ListNode* objectHead;
 
 	//lighting
 	Vector4* _lightPosition;

@@ -2,6 +2,7 @@
 
 
 
+
 HelloGL::HelloGL(int argc,char* argv[])
 {
 	srand(time(0));
@@ -18,27 +19,23 @@ HelloGL::HelloGL(int argc,char* argv[])
 HelloGL::~HelloGL(void)
 {
 	delete camera;
-
-	for (int i = 0; i < OBJECTARRAY; i++)
-	{
-		delete objects[i];
-	}
+		
+	objectList->DeleteList(&objectHead);	
 	
+
+	delete objectList;
+	objectList = nullptr;
+
+	delete objectHead;
+	objectHead = nullptr;
 	
 }
 
 void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	
-
-	
-
-	for (int i = 0; i < OBJECTARRAY; i++)
-	{
-		objects[i]->Draw();
-	}
-	
+		
+	objectList->DrawNode(objectHead);
 		
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();
@@ -64,9 +61,14 @@ void HelloGL::InitObjects()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
+
+	//linked list
+	objectList = new LinkedList();
+	objectHead = nullptr;
+
 	for (int i = 0; i < (OBJECTARRAY); i++)
 	{
-		objects[i] = new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
+		objectList->MakeNode(&objectHead, new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
 	}
 	/*for (int i = (OBJECTARRAY / 2); i < OBJECTARRAY; i++)
 	{
@@ -150,12 +152,13 @@ void HelloGL::Update()
 	
 	glTranslatef(0.0f, 0.0f, -5.0f);
 
-	for (int i = 0; i < OBJECTARRAY; i++)
-	{
-		objects[i]->Update();
-	}
+	//for (int i = 0; i < OBJECTARRAY; i++)
+	//{
+	//	//objects[i]->Update();
+	//	
+	//}
 	
-	
+	objectList->UpdateNode(objectHead);
 	
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		
