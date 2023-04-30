@@ -24,6 +24,11 @@ struct Vertex
 	GLfloat x, y, z;
 };
 
+struct Color
+{
+	GLfloat r, g, b;
+};
+
 struct TexCoord
 {
 	GLfloat u, v;

@@ -137,6 +137,13 @@ void HelloGL::InitLighting()
 
 }
 
+void HelloGL::DrawString(const char* Text, Vector3* position, Color* color)
+{
+
+}
+
+
+
 void HelloGL::Update()
 {
 	

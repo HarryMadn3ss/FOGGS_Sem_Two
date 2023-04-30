@@ -65,5 +65,5 @@ void LinkedList::DeleteList(ListNode** node)
 		delete pTemp;
 		
 	}
-	*node = nullptr;
+	node = nullptr;
 }

@@ -52,6 +52,6 @@ public:
 
 	void InitLighting();
 
-
+	void DrawString(const char* Text, Vector3* position, Color* color);
 };
 
