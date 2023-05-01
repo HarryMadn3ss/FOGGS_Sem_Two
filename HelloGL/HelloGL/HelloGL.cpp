@@ -33,10 +33,15 @@ HelloGL::~HelloGL(void)
 
 void HelloGL::Display()
 {
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		
+	glColor3fv(&_textColor.r);
+	DrawString("Test Text", &_textVector, &_textColor);
+	
+
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);		
+
 	objectList->DrawNode(objectHead);
-		
+	
+
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();
 }
@@ -55,6 +60,8 @@ void HelloGL::InitObjects()
 	/*Mesh* staticMesh = MeshLoader::Load((char*)"files/txtFiles/pyramid.txt");
 	Texture2D* starsTexture = new Texture2D();
 	texture->Load((char*)"files/textures.Stars.raw", 512, 512);*/
+
+	
 
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -137,9 +144,15 @@ void HelloGL::InitLighting()
 
 }
 
-void HelloGL::DrawString(const char* Text, Vector3* position, Color* color)
+void HelloGL::DrawString(const char* text, Vector3* position, Color* color)
 {
+	glPushMatrix();
 
+	glTranslatef(position->x, position->y, position->z);
+	glRasterPos2f(0.0f, 0.0f);
+	glutBitmapString(GLUT_BITMAP_TIMES_ROMAN_24, (unsigned char*)text);
+
+	glPopMatrix();
 }
 
 

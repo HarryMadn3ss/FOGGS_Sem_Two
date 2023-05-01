@@ -34,6 +34,10 @@ private:
 	Vector4* _lightPosition;
 	Lighting* _lightData;
 
+	//text
+	Vector3 _textVector = { 0.0f, 0.0f, 0.0f };
+	Color _textColor = { 0.0f, 1.0f, 0.0f }; 
+
 public:
 
 	HelloGL(int argc, char* argv[]);
@@ -52,6 +56,6 @@ public:
 
 	void InitLighting();
 
-	void DrawString(const char* Text, Vector3* position, Color* color);
+	void DrawString(const char* text, Vector3* position, Color* color);
 };
 
