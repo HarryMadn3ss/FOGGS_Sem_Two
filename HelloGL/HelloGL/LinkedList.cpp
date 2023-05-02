@@ -12,7 +12,7 @@ LinkedList::~LinkedList()
 
 ListNode* LinkedList::MakeNode(ListNode** head, SceneObject* object)
 {
-	ListNode* newNode = new ListNode;
+	ListNode* newNode = new ListNode();
 	ListNode* last = *head;
 
 	newNode->object = object;
@@ -31,6 +31,7 @@ ListNode* LinkedList::MakeNode(ListNode** head, SceneObject* object)
 	last->next = newNode;
 
 	return newNode;
+	
 }
 
 void LinkedList::DrawNode(ListNode* node)

@@ -19,7 +19,8 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 
 Cube::~Cube()
 {
-
+	delete _material;
+	_material = nullptr;
 }
 
 void Cube::Draw()

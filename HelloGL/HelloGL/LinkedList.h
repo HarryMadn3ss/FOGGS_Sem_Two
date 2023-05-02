@@ -2,9 +2,11 @@
 
 #include <iostream>
 #include <iomanip>
+#include <memory>
 
 #include "Structures.h"
 #include "SceneObject.h"
+
 
 
 class LinkedList
@@ -13,6 +15,7 @@ protected:
 
 private:
 	ListNode* head = nullptr;
+	
 	
 public:
 	

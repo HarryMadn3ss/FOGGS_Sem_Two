@@ -64,3 +64,10 @@ struct ListNode
 	SceneObject* object;
 	ListNode* next;
 };
+
+struct TreeNode
+{
+	SceneObject* object;
+	ListNode* Left;
+	ListNode* right;
+};

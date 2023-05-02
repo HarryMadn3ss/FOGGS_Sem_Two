@@ -19,6 +19,7 @@ HelloGL::HelloGL(int argc,char* argv[])
 HelloGL::~HelloGL(void)
 {
 	delete camera;
+	camera = nullptr;
 		
 	objectList->DeleteList(&objectHead);	
 	
@@ -28,6 +29,15 @@ HelloGL::~HelloGL(void)
 
 	delete objectHead;
 	objectHead = nullptr;
+
+	delete _lightData;
+	_lightData = nullptr;
+
+	delete _lightPosition;
+	_lightPosition = nullptr;
+
+	
+
 	
 }
 
