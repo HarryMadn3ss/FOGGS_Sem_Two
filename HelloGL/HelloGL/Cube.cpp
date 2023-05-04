@@ -14,6 +14,8 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 
 	_rotation = 0.0f;
 
+	//material
+	DefineMaterial();
 	
 }
 
@@ -36,7 +38,7 @@ void Cube::Draw()
 		glEnable(GL_NORMAL_ARRAY);
 		glNormalPointer(GL_FLOAT, 0, _mesh->normals);
 		//material
-		DefineMaterial();
+		
 		glMaterialfv(GL_FRONT, GL_AMBIENT, &(_material->ambient.x));
 		glMaterialfv(GL_FRONT, GL_DIFFUSE, &(_material->diffuse.x));
 		glMaterialfv(GL_FRONT, GL_SPECULAR, &(_material->specular.x));
