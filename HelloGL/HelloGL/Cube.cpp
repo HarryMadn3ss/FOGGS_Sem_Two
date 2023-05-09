@@ -15,7 +15,7 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 	_rotation = 0.0f;
 
 	//material
-	DefineMaterial();
+	_material = Materials::Instance()->DefineMaterial(GREEN);
 	
 }
 
@@ -71,30 +71,5 @@ void Cube::Draw()
 void Cube::Update()
 {
 	_rotation += 0.5f;
-}
-
-void Cube::DefineMaterial()
-{
-	_material = new Material();
-	//ambient
-	_material->ambient.x = 0.8;
-	_material->ambient.y = 0.05;
-	_material->ambient.z = 0.05;
-	_material->ambient.w = 1;
-
-	//diffuse
-	_material->diffuse.x = 0.8;
-	_material->diffuse.y = 0.05;
-	_material->diffuse.z = 0.05;
-	_material->diffuse.w = 1.0;
-
-	//specular
-	_material->specular.x = 1.0;
-	_material->specular.y = 1.0;
-	_material->specular.z = 1.0;
-	_material->specular.w = 1.0;
-
-	//shininess
-	_material->shininess = 100.0f;
 }
 

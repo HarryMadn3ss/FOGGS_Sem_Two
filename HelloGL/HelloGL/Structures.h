@@ -53,7 +53,7 @@ struct Lighting
 	Vector4 ambient, diffuse, specular;
 };
 
-struct Material
+struct MaterialStruct
 {
 	Vector4 ambient, diffuse, specular;
 	GLfloat shininess;
