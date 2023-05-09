@@ -28,11 +28,7 @@ HelloGL::~HelloGL(void)
 	delete _objectHead;
 	_objectHead = nullptr;
 
-	delete _lightData;
-	_lightData = nullptr;
-
-	delete _lightPosition;
-	_lightPosition = nullptr;	
+		
 }
 
 void HelloGL::Display()
@@ -64,6 +60,9 @@ void HelloGL::InitObjects()
 	//material switcher
 	
 	_materialNum = 1;
+
+	//light switch
+	_lightOn = true;
 
 	//linked list
 	_objectList = new LinkedList();
@@ -114,30 +113,14 @@ void HelloGL::InitGL(int argc, char* argv[])
 
 void HelloGL::InitLighting()
 {
-	_lightPosition = new Vector4();
-	_lightPosition->x = 0.0;
-	_lightPosition->y = 0.0;
-	_lightPosition->z = 1.0;
-	_lightPosition->w = 0.0;
-
-	_lightData = new Lighting();
-	_lightData->ambient.x = 0.2;
-	_lightData->ambient.y = 0.2;
-	_lightData->ambient.z = 0.2;
-	_lightData->ambient.w = 1.0;
-	_lightData->diffuse.x = 0.8;
-	_lightData->diffuse.y = 0.8;
-	_lightData->diffuse.z = 0.8;
-	_lightData->diffuse.w = 1.0;
-	_lightData->specular.x = 0.2;
-	_lightData->specular.y = 0.2;
-	_lightData->specular.z = 0.2;
-	_lightData->specular.w = 1.0;
-
+	_lightData = Lighting::Instance()->SetLighting(_lightOn);
+	_lightPosition = Lighting::Instance()->SetLightingPosition();
 }
 
 void HelloGL::Update()
 {
+
+	_lightData = Lighting::Instance()->GetLighting();
 	
 	glLightfv(GL_LIGHT0, GL_AMBIENT, &(_lightData->ambient.x));
 	glLightfv(GL_LIGHT0, GL_DIFFUSE, &(_lightData->diffuse.x));
@@ -215,6 +198,19 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 			_materialNum = 0;
 		}
 		
+	}
+	if (key == 'l')
+	{
+		if (_lightOn)
+		{
+			_lightOn = false;
+			Lighting::Instance()->SetLighting(_lightOn);
+		}
+		else
+		{
+			_lightOn = true;
+			Lighting::Instance()->SetLighting(_lightOn);
+		}
 	}
 }
 

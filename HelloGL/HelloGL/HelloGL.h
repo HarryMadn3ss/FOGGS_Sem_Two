@@ -11,6 +11,7 @@
 #include "StaticObject.h"
 #include "LinkedList.h"
 #include "Materials.h"
+#include "Lighting.h"
 
 #define REFRESHRATE 16
 
@@ -28,12 +29,13 @@ private:
 		
 	//SceneObject* objects[OBJECTARRAY];
 
-	LinkedList* objectList;
-	ListNode* objectHead;
+	LinkedList* _objectList;
+	ListNode* _objectHead;
 
 	//lighting
 	Vector4* _lightPosition;
-	Lighting* _lightData;
+	LightingStruct* _lightData;
+	bool _lightOn;
 
 	
 	int _materialNum;

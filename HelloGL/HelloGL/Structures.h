@@ -48,7 +48,7 @@ struct Vector4
 	//w is for matrix multiplications
 };
 
-struct Lighting
+struct LightingStruct
 {
 	Vector4 ambient, diffuse, specular;
 };
