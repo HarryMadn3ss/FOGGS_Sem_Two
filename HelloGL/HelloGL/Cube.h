@@ -13,7 +13,7 @@ private:
 
 	GLfloat _rotation;
 
-	MaterialStruct* _material;
+	
 
 public:
 	Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z);
@@ -21,7 +21,8 @@ public:
 
 	void Draw();
 	void Update();
-	/*void DefineMaterial();*/
-		
+	
+	MaterialStruct* _material;
+
 };
 

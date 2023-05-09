@@ -71,6 +71,9 @@ void HelloGL::InitObjects()
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
 
+	//material switcher
+	
+	_materialNum = 1;
 
 	//linked list
 	objectList = new LinkedList();
@@ -207,6 +210,30 @@ void HelloGL::Keyboard(unsigned char key, int x, int y)
 	{
 		camera->eye.y -= 0.1f;
 		camera->center.y -= 0.1f;
+	}
+	if (key == 'p')
+	{
+		if (_materialNum == 0)
+		{
+			Materials::Instance()->DefineMaterial(STANDARD);
+			_materialNum++;
+		}
+		else if (_materialNum == 1)
+		{
+			Materials::Instance()->DefineMaterial(RED);
+			_materialNum++;
+		}
+		else if (_materialNum == 2)
+		{
+			Materials::Instance()->DefineMaterial(BLUE);
+			_materialNum++;
+		}
+		else if (_materialNum == 3)
+		{
+			Materials::Instance()->DefineMaterial(GREEN);
+			_materialNum = 0;
+		}
+		
 	}
 }
 

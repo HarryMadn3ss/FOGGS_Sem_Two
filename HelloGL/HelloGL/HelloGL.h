@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include "StaticObject.h"
 #include "LinkedList.h"
+#include "Materials.h"
 
 #define REFRESHRATE 16
 
@@ -33,6 +34,9 @@ private:
 	//lighting
 	Vector4* _lightPosition;
 	Lighting* _lightData;
+
+	
+	int _materialNum;
 
 public:
 

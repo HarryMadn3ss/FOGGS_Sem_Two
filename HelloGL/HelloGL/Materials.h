@@ -23,7 +23,7 @@ public:
 	static Materials* Instance();
 
 	MaterialStruct* DefineMaterial(enum MATERIALCOLOR color);
-
+	MaterialStruct* GetMaterial() { return _material; }
 	
 	MaterialStruct* _material;
 

@@ -15,7 +15,7 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 	_rotation = 0.0f;
 
 	//material
-	_material = Materials::Instance()->DefineMaterial(GREEN);
+	_material = Materials::Instance()->DefineMaterial(STANDARD);
 	
 }
 
@@ -37,6 +37,7 @@ void Cube::Draw()
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glEnable(GL_NORMAL_ARRAY);
 		glNormalPointer(GL_FLOAT, 0, _mesh->normals);
+
 		//material
 		
 		glMaterialfv(GL_FRONT, GL_AMBIENT, &(_material->ambient.x));
@@ -71,5 +72,6 @@ void Cube::Draw()
 void Cube::Update()
 {
 	_rotation += 0.5f;
+	_material = Materials::Instance()->GetMaterial();
 }
 
