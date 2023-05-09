@@ -1,8 +1,6 @@
 #include "HelloGL.h"
 
 
-
-
 HelloGL::HelloGL(int argc,char* argv[])
 {
 	srand(time(0));
@@ -21,31 +19,27 @@ HelloGL::~HelloGL(void)
 	delete camera;
 	camera = nullptr;
 		
-	objectList->DeleteList(&objectHead);	
+	_objectList->DeleteList(&_objectHead);	
 	
 
-	delete objectList;
-	objectList = nullptr;
+	delete _objectList;
+	_objectList = nullptr;
 
-	delete objectHead;
-	objectHead = nullptr;
+	delete _objectHead;
+	_objectHead = nullptr;
 
 	delete _lightData;
 	_lightData = nullptr;
 
 	delete _lightPosition;
-	_lightPosition = nullptr;
-
-	
-
-	
+	_lightPosition = nullptr;	
 }
 
 void HelloGL::Display()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
-	objectList->DrawNode(objectHead);
+	_objectList->DrawNode(_objectHead);
 		
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();
@@ -61,11 +55,7 @@ void HelloGL::InitObjects()
 	Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
 	Texture2D* texture = new Texture2D();
 	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
-
-	/*Mesh* staticMesh = MeshLoader::Load((char*)"files/txtFiles/pyramid.txt");
-	Texture2D* starsTexture = new Texture2D();
-	texture->Load((char*)"files/textures.Stars.raw", 512, 512);*/
-
+	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -76,18 +66,14 @@ void HelloGL::InitObjects()
 	_materialNum = 1;
 
 	//linked list
-	objectList = new LinkedList();
-	objectHead = nullptr;
+	_objectList = new LinkedList();
+	_objectHead = nullptr;
 
 	for (int i = 0; i < (OBJECTARRAY); i++)
 	{
-		objectList->MakeNode(&objectHead, new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
 	}
-	/*for (int i = (OBJECTARRAY / 2); i < OBJECTARRAY; i++)
-	{
-		objects[i] = new StaticObject(staticMesh, starsTexture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f));
-	}*/
-
+	
 	//variable constructs
 	triRotation = 0.0f;
 	squRotation = 0.0f;
@@ -164,14 +150,9 @@ void HelloGL::Update()
 		camera->up.x, camera->up.y, camera->up.z);
 	
 	glTranslatef(0.0f, 0.0f, -5.0f);
-
-	//for (int i = 0; i < OBJECTARRAY; i++)
-	//{
-	//	//objects[i]->Update();
-	//	
-	//}
+		
 	
-	objectList->UpdateNode(objectHead);
+	_objectList->UpdateNode(_objectHead);
 	
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		
