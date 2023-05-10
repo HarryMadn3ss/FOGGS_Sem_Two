@@ -48,6 +48,11 @@ struct Vector4
 	//w is for matrix multiplications
 };
 
+struct Color
+{
+	GLfloat r, g, b;
+};
+
 struct LightingStruct
 {
 	Vector4 ambient, diffuse, specular;
@@ -70,4 +75,17 @@ struct TreeNode
 	SceneObject* object;
 	ListNode* Left;
 	ListNode* right;
+};
+
+struct OBJLoaderVertices
+{
+	Vector3* Vertices;
+	TexCoord* texCoords;
+	Vector3* normals;
+};
+
+struct OBJReferances
+{
+	OBJReferances( int v, int vt, int vn) : v(v), vt(vt), vn(vn) {}
+	int v, vt, vn;
 };

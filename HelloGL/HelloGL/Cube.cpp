@@ -28,15 +28,17 @@ Cube::~Cube()
 void Cube::Draw()
 {
 	
-	if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
-	{		
+	/*if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
+	{*/		
+
+	std::ifstream inFile("files/OBJFiles/Earth.obj");
 
 		glBindTexture(GL_TEXTURE_2D, _texture->GetID());		
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-		glTexCoordPointer(2, GL_FLOAT, 0, _mesh->texCoords);
+		//glTexCoordPointer(2, GL_FLOAT, 0, _mesh->texCoords);
 		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glEnable(GL_NORMAL_ARRAY);
-		glNormalPointer(GL_FLOAT, 0, _mesh->normals);
+		//glNormalPointer(GL_FLOAT, 0, _mesh->normals);
 
 		//material
 		
@@ -52,12 +54,15 @@ void Cube::Draw()
 
 		glBegin(GL_TRIANGLES);
 
-		for (int i = 0; i < 36; i++)
-		{			
-			glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
-			glNormal3fv(&_mesh->normals[_mesh->indices[i]].x);
-			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
-		}
+		//for (int i = 0; i < 36; i++)
+		//{			
+		//	/*glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
+		//	glNormal3fv(&_mesh->normals[_mesh->indices[i]].x);
+		//	glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);*/
+
+		//}
+
+		OBJLoader::Instance()->LoadOBJ(inFile);
 	
 		glEnd();
 
@@ -65,7 +70,7 @@ void Cube::Draw()
 
 		glPopMatrix();
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	}
+	//}
 	
 }
 

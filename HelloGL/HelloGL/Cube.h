@@ -2,7 +2,7 @@
 
 #include "Structures.h"
 #include "SceneObject.h"
-
+#include "OBJLoader.h"
 
 
 class Cube : public SceneObject

@@ -12,6 +12,7 @@
 #include "LinkedList.h"
 #include "Materials.h"
 #include "Lighting.h"
+#include "TextRenderer.h"
 
 #define REFRESHRATE 16
 
@@ -26,9 +27,7 @@ private:
 	float rectRotation;
 
 	Camera* camera;
-		
-	//SceneObject* objects[OBJECTARRAY];
-
+	
 	LinkedList* _objectList;
 	ListNode* _objectHead;
 
@@ -36,6 +35,10 @@ private:
 	Vector4* _lightPosition;
 	LightingStruct* _lightData;
 	bool _lightOn;
+
+	//text location
+	Vector3* _textPosition;
+	Color* _textColor;
 
 	
 	int _materialNum;

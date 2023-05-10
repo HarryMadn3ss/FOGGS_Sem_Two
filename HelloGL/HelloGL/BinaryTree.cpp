@@ -2,10 +2,12 @@
 
 BinaryTree::BinaryTree()
 {
+
 }
 
 BinaryTree::~BinaryTree()
 {
+
 }
 
 TreeNode* BinaryTree::MakeNode(TreeNode* node,SceneObject* object)
@@ -20,6 +22,9 @@ TreeNode* BinaryTree::MakeNode(TreeNode* node,SceneObject* object)
 
 }
 
-void BinaryTree::DeleteTree()
+void BinaryTree::DeleteTree(TreeNode* root)
 {
+
 }
+
+

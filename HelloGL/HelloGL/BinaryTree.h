@@ -18,6 +18,8 @@ public:
 
 	TreeNode* MakeNode(TreeNode* node,SceneObject* object);
 
-	void DeleteTree();
+	void DeleteTree(TreeNode* root);
+
+	
 };
 

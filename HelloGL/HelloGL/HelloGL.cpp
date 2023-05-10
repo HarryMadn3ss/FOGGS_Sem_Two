@@ -21,14 +21,17 @@ HelloGL::~HelloGL(void)
 		
 	_objectList->DeleteList(&_objectHead);	
 	
-
 	delete _objectList;
 	_objectList = nullptr;
 
 	delete _objectHead;
 	_objectHead = nullptr;
 
-		
+	delete _textPosition;
+	_textPosition = nullptr;
+
+	delete _textColor;
+	_textColor = nullptr;
 }
 
 void HelloGL::Display()
@@ -36,6 +39,7 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 	_objectList->DrawNode(_objectHead);
+	TextRenderer::Instance()->DrawString("Test string", _textPosition, _textColor);
 		
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();
@@ -48,9 +52,9 @@ void HelloGL::InitObjects()
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
+	/*Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
 	Texture2D* texture = new Texture2D();
-	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
+	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);*/
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -63,6 +67,12 @@ void HelloGL::InitObjects()
 
 	//light switch
 	_lightOn = true;
+
+	//text
+	_textPosition = new Vector3;
+	_textColor = new Color;	
+	_textPosition->x = -1.4f; _textPosition->y = -1.0f; _textPosition->z = -1.0f;
+	_textColor->r = 0.0f; _textColor->g = 1.0f; _textColor->b = 0.0f;
 
 	//linked list
 	_objectList = new LinkedList();
@@ -133,7 +143,6 @@ void HelloGL::Update()
 		camera->up.x, camera->up.y, camera->up.z);
 	
 	glTranslatef(0.0f, 0.0f, -5.0f);
-		
 	
 	_objectList->UpdateNode(_objectHead);
 	

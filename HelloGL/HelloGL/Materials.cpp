@@ -12,6 +12,9 @@ Materials::~Materials()
 {
 	delete _material;
 	_material = nullptr;
+
+	delete m_instance;
+	m_instance = nullptr;
 }
 
  Materials* Materials::Instance()
