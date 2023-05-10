@@ -17,6 +17,7 @@ This project denotes my first attempt at using the OpenGL libaries to create a S
 > File Formats
 
 This learning was alongside the renforcement of skills and knowledge gain during semester one
+
 ---
 
 ### Further Work
