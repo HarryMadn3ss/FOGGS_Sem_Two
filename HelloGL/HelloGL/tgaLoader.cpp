@@ -1,3 +1,10 @@
+#include "Structures.h"
+#include "Texture2D.h"
+
+
+#include <iostream>
+#include <fstream>
+
 int LoadTextureTGA(const char* textureFileName)
 {
 	int ID;
@@ -6,29 +13,31 @@ int LoadTextureTGA(const char* textureFileName)
 	int fileSize;
 	char type, pixelDepth, mode;
 
-	ifstream inFile;
+	Texture2D* _texture;
 
-	inFile.open(textureFileName, ios::binary);
+	std::ifstream inFile;
+
+	inFile.open(textureFileName, std::ios::binary);
 	if (!inFile.good())  
 	{
-		cerr  << "Can't open texture file " << textureFileName << endl;
+		std::cerr  << "Can't open texture file " << textureFileName << std::endl;
 		return -1;
 	}
 
 	//18 Bytes is the size of a TGA Header
-	inFile.seekg (0, ios::beg); //Seek back to beginning of file
+	inFile.seekg (0, std::ios::beg); //Seek back to beginning of file
 	inFile.read (tempHeaderData, 18); //Read in all the data in one go
 
-	inFile.seekg (0, ios::end); //Seek to end of file
+	inFile.seekg (0, std::ios::end); //Seek to end of file
 	fileSize = (int)inFile.tellg() - 18; //Get current position in file - The End, this gives us total file size
 	tempTextureData = new char [fileSize]; //Create an new aray to store data
-	inFile.seekg (18, ios::beg); //Seek back to beginning of file + 18
+	inFile.seekg (18, std::ios::beg); //Seek back to beginning of file + 18
 	inFile.read (tempTextureData, fileSize); //Read in all the data in one go
 	inFile.close(); //Close the file
 
 	type = tempHeaderData[2]; //Get TGA Type out of Header - Must be RGB for this to work
-	_width = ((unsigned char)tempHeaderData[13] << 8u) + (unsigned char)tempHeaderData[12]; // Find the width (Combines two bytes into a short)
-	_height = ((unsigned char)tempHeaderData[15] << 8u) + (unsigned char)tempHeaderData[14]; //Find the height
+	_texture->_width = ((unsigned char)tempHeaderData[13] << 8u) + (unsigned char)tempHeaderData[12]; // Find the width (Combines two bytes into a short)
+	_texture->_height = ((unsigned char)tempHeaderData[15] << 8u) + (unsigned char)tempHeaderData[14]; //Find the height
 	pixelDepth = tempHeaderData[16]; // Find the pixel depth (24/32bpp)
 
 	bool flipped = false;
@@ -38,18 +47,18 @@ int LoadTextureTGA(const char* textureFileName)
 	//We only support RGB type
 	if (type == 2)
 	{
-		cout << textureFileName << " loaded." << endl;
+		std::cout << textureFileName << " loaded." << std::endl;
 
-		glGenTextures(1, ID); //Get next Texture ID
+		glGenTextures(1, _texture->GetID()); //Get next Texture ID
 		glBindTexture(GL_TEXTURE_2D, *ID); //Bind the texture to the ID
 
 		mode = pixelDepth / 8;
 
 		//Note that TGA files are stored as BGR(A) - So we need to specify the format as GL_BGR(A)_EXT
 		if (mode == 4)
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, tempTextureData);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _texture->_width, _texture->_height, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, tempTextureData);
 		else
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, tempTextureData);
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _texture->_width, _texture->_height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, tempTextureData);
 		}		
 	}
 

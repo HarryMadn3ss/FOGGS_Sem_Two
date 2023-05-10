@@ -8,8 +8,7 @@ protected:
 
 
 private:
-	GLuint _ID;
-	int _width, _height;
+	
 
 public:
 	Texture2D();
@@ -21,5 +20,7 @@ public:
 	int GetWidth() const { return _width; }
 	int GetHeight() const { return _height; }
 
+	GLuint _ID;
+	int _width, _height;
 };
 
