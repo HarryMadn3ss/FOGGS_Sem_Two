@@ -6,7 +6,20 @@
 
 
 
-Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+//Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+//{
+//	_position.x = x;
+//	_position.y = y;
+//	_position.z = z;
+//
+//	_rotation = 0.0f;
+//
+//	//material
+//	_material = Materials::Instance()->DefineMaterial(STANDARD);
+//	
+//}
+
+Cube::Cube(OBJLoaderVertices* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
 {
 	_position.x = x;
 	_position.y = y;
@@ -16,7 +29,6 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 
 	//material
 	_material = Materials::Instance()->DefineMaterial(STANDARD);
-	
 }
 
 Cube::~Cube()
@@ -62,7 +74,7 @@ void Cube::Draw()
 
 		//}
 
-		OBJLoader::Instance()->LoadOBJ(inFile);
+		OBJLoader::Instance()->LoadOBJ(inFile); // TODO fix this might cause mem leak
 	
 		glEnd();
 

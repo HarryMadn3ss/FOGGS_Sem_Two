@@ -52,9 +52,11 @@ void HelloGL::InitObjects()
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	/*Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
+	//Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
+	std::ifstream inFile("files/OBJFiles/Earth.obj");
+	std::vector<OBJLoaderVertices> cubeMesh = OBJLoader::Instance()->LoadOBJ(inFile);
 	Texture2D* texture = new Texture2D();
-	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);*/
+	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
