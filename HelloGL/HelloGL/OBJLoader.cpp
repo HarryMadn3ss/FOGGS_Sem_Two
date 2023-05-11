@@ -86,9 +86,8 @@ std::vector<OBJLoaderVertices> OBJLoader::LoadOBJ(std::istream& inFile)
 				referances.push_back(OBJReferances(v, vt, vn));
 
 			}
-
-
 		}
+
 		return _verts;
 	}
 

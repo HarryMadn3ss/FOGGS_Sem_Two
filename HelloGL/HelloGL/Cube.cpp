@@ -6,20 +6,7 @@
 
 
 
-//Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
-//{
-//	_position.x = x;
-//	_position.y = y;
-//	_position.z = z;
-//
-//	_rotation = 0.0f;
-//
-//	//material
-//	_material = Materials::Instance()->DefineMaterial(STANDARD);
-//	
-//}
-
-Cube::Cube(OBJLoaderVertices* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
 {
 	_position.x = x;
 	_position.y = y;
@@ -29,7 +16,20 @@ Cube::Cube(OBJLoaderVertices* mesh, Texture2D* texture, float x, float y, float 
 
 	//material
 	_material = Materials::Instance()->DefineMaterial(STANDARD);
+	
 }
+
+//Cube::Cube(OBJLoaderVertices* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+//{
+//	_position.x = x;
+//	_position.y = y;
+//	_position.z = z;
+//
+//	_rotation = 0.0f;
+//
+//	//material
+//	_material = Materials::Instance()->DefineMaterial(STANDARD);
+//}
 
 Cube::~Cube()
 {
@@ -40,10 +40,10 @@ Cube::~Cube()
 void Cube::Draw()
 {
 	
-	/*if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
-	{*/		
+	if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
+	{	
 
-	std::ifstream inFile("files/OBJFiles/Earth.obj");
+	
 
 		glBindTexture(GL_TEXTURE_2D, _texture->GetID());		
 		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
@@ -66,15 +66,15 @@ void Cube::Draw()
 
 		glBegin(GL_TRIANGLES);
 
-		//for (int i = 0; i < 36; i++)
-		//{			
-		//	/*glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
-		//	glNormal3fv(&_mesh->normals[_mesh->indices[i]].x);
-		//	glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);*/
+		for (int i = 0; i < 36; i++)
+		{			
+			glTexCoord2fv(&_mesh->texCoords[_mesh->indices[i]].u);
+			glNormal3fv(&_mesh->normals[_mesh->indices[i]].x);
+			glVertex3fv(&_mesh->vertices[_mesh->indices[i]].x);
 
-		//}
+		}
 
-		OBJLoader::Instance()->LoadOBJ(inFile); // TODO fix this might cause mem leak
+		
 	
 		glEnd();
 
@@ -82,7 +82,7 @@ void Cube::Draw()
 
 		glPopMatrix();
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
-	//}
+	}
 	
 }
 
