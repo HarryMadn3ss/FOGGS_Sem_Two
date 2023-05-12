@@ -1,4 +1,4 @@
-#include "Cube.h"
+#include "DynamicObject.h"
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -6,7 +6,7 @@
 
 
 
-Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
+DynamicObject::DynamicObject(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObject(mesh, texture)
 {
 	_position.x = x;
 	_position.y = y;
@@ -21,7 +21,7 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z) : SceneObj
 	
 }
 
-Cube::Cube(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 scale) : SceneObject(mesh, texture)
+DynamicObject::DynamicObject(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 scale) : SceneObject(mesh, texture)
 {
 	_position.x = position.x;
 	_position.y = position.y;
@@ -38,13 +38,13 @@ Cube::Cube(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 scale) : Sc
 
 }
 
-Cube::~Cube()
+DynamicObject::~DynamicObject()
 {
 	delete _material;
 	_material = nullptr;
 }
 
-void Cube::Draw()
+void DynamicObject::Draw()
 {
 	
 	if (_mesh->vertices != nullptr && _mesh->normals != nullptr && _mesh->indices != nullptr)
@@ -91,7 +91,7 @@ void Cube::Draw()
 	
 }
 
-void Cube::Update()
+void DynamicObject::Update()
 {
 	_rotation += 0.5f;
 	_material = Materials::Instance()->GetMaterial();

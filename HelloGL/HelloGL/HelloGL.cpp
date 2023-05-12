@@ -94,25 +94,23 @@ void HelloGL::InitObjects()
 
 	for (int i = 0; i < (OBJECTARRAY / 6); i++)
 	{
-		_objectList->MakeNode(&_objectHead, new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
-		_objectList->MakeNode(&_objectHead, new Cube(pyramidMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
-		_objectList->MakeNode(&_objectHead, new Cube(rombusMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
-		_objectList->MakeNode(&_objectHead, new Cube(monkeyMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
-		_objectList->MakeNode(&_objectHead, new Cube(ballMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
-		_objectList->MakeNode(&_objectHead, new Cube(saturnMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(pyramidMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(rombusMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(monkeyMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(ballMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new DynamicObject(saturnMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
 	}
 	
 
 	// Setup SceneGraph
-	_sceneGraphRoot = new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 0, 0, -10 }, Vector3{ 1, 1, 1 }));
-	_sceneGraphRoot->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, 5, 0, 0)));
-	SceneGraphNode* parentPlanet = _sceneGraphRoot->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 10, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
-	parentPlanet->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 7, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
+	_sceneGraphRoot = new SceneGraphNode(new DynamicObject(ballMesh, earthTGA, Vector3{ 0, 0, -10 }, Vector3{ 1, 1, 1 }));
+	_sceneGraphRoot->AddChild(new SceneGraphNode(new DynamicObject(ballMesh, earthTGA, 5, 0, 0)));
+	SceneGraphNode* parentPlanet = _sceneGraphRoot->AddChild(new SceneGraphNode(new DynamicObject(ballMesh, earthTGA, Vector3{ 10, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
+	parentPlanet->AddChild(new SceneGraphNode(new DynamicObject(ballMesh, earthTGA, Vector3{ 7, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
 
-	//variable constructs
-	triRotation = 0.0f;
-	squRotation = 0.0f;
-	rectRotation = 0.0f;
+	
+	
 }
 
 void HelloGL::InitGL(int argc, char* argv[])

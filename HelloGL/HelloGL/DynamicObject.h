@@ -5,7 +5,7 @@
 #include "OBJLoader.h"
 
 
-class Cube : public SceneObject
+class DynamicObject : public SceneObject
 {
 private:	
 
@@ -17,10 +17,10 @@ private:
 	
 
 public:
-	Cube(Mesh* mesh, Texture2D* texture, float x, float y, float z);
-	Cube(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 scale);
+	DynamicObject(Mesh* mesh, Texture2D* texture, float x, float y, float z);
+	DynamicObject(Mesh* mesh, Texture2D* texture, Vector3 position, Vector3 scale);
 	
-	~Cube();
+	~DynamicObject();
 
 	void Draw();
 	void Update();

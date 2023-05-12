@@ -7,7 +7,7 @@
 #include "MeshLoader.h"
 #include "GLUTCallbacks.h"
 
-#include "Cube.h"
+#include "DynamicObject.h"
 #include "StaticObject.h"
 #include "LinkedList.h"
 #include "Materials.h"
