@@ -38,7 +38,11 @@ struct Mesh
 	Vector3* normals;
 	GLushort* indices;
 	TexCoord* texCoords;
-	
+
+	Mesh()
+	{
+
+	}
 };
 
 struct Vector4

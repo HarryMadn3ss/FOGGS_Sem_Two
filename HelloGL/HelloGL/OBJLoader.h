@@ -18,6 +18,6 @@ public:
 	~OBJLoader();
 	static OBJLoader* Instance();
 
-	std::vector<OBJLoaderVertices> LoadOBJ(std::istream& inFile);
+	Mesh* LoadOBJToMesh(std::string objPath);
 };
 

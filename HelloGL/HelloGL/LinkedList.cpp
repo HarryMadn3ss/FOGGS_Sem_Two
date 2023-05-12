@@ -38,7 +38,9 @@ void LinkedList::DrawNode(ListNode* node)
 {
 	while (node != nullptr)
 	{
+		glPushMatrix();
 		node->object->Draw();
+		glPopMatrix();
 		node = node->next;
 	}
 	

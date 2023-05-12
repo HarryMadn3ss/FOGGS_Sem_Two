@@ -136,11 +136,14 @@
     <ClInclude Include="Materials.h" />
     <ClInclude Include="MeshLoader.h" />
     <ClInclude Include="OBJLoader.h" />
+    <ClInclude Include="SceneGraphNode.h" />
     <ClInclude Include="SceneObject.h" />
     <ClInclude Include="StaticObject.h" />
     <ClInclude Include="Structures.h" />
     <ClInclude Include="TextRenderer.h" />
     <ClInclude Include="Texture2D.h" />
+    <ClInclude Include="TGAImageLoader.h" />
+    <ClInclude Include="tgaLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BinaryTree.cpp" />
@@ -157,6 +160,7 @@
     <ClCompile Include="StaticObject.cpp" />
     <ClCompile Include="TextRenderer.cpp" />
     <ClCompile Include="Texture2D.cpp" />
+    <ClCompile Include="TGAImageLoader.cpp" />
     <ClCompile Include="tgaLoader.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

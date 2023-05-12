@@ -1,11 +1,11 @@
-#include "Structures.h"
-#include "Texture2D.h"
-
+#include "tgaLoader.h"
 
 #include <iostream>
 #include <fstream>
+#include "Structures.h"
+#include "Texture2D.h"
 
-int LoadTextureTGA(const char* textureFileName)
+Texture2D* TGALoader::LoadTextureTGA(const char* textureFileName)
 {
 	int ID;
 	char* tempHeaderData = new char[18]; //18 Bytes is TGA Header Size
@@ -13,7 +13,7 @@ int LoadTextureTGA(const char* textureFileName)
 	int fileSize;
 	char type, pixelDepth, mode;
 
-	Texture2D* _texture;
+	Texture2D* _texture = new Texture2D();
 
 	std::ifstream inFile;
 
@@ -21,7 +21,7 @@ int LoadTextureTGA(const char* textureFileName)
 	if (!inFile.good())  
 	{
 		std::cerr  << "Can't open texture file " << textureFileName << std::endl;
-		return -1;
+		return nullptr;
 	}
 
 	//18 Bytes is the size of a TGA Header
@@ -49,8 +49,8 @@ int LoadTextureTGA(const char* textureFileName)
 	{
 		std::cout << textureFileName << " loaded." << std::endl;
 
-		glGenTextures(1, _texture->GetID()); //Get next Texture ID
-		glBindTexture(GL_TEXTURE_2D, *ID); //Bind the texture to the ID
+		glGenTextures(1, &(_texture->_ID)); //Get next Texture ID
+		glBindTexture(GL_TEXTURE_2D, _texture->_ID); //Bind the texture to the ID
 
 		mode = pixelDepth / 8;
 
@@ -58,12 +58,11 @@ int LoadTextureTGA(const char* textureFileName)
 		if (mode == 4)
 			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _texture->_width, _texture->_height, 0, GL_BGRA_EXT, GL_UNSIGNED_BYTE, tempTextureData);
 		else
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _texture->_width, _texture->_height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, tempTextureData);
-		}		
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _texture->_width, _texture->_height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, tempTextureData);		
 	}
 
 	delete [] tempHeaderData; //We don't need the header memory anymore
 	delete [] tempTextureData; //Clear up the data - We don't need this any more
 
-	return ID;
+	return _texture;
 }

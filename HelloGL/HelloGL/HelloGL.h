@@ -13,6 +13,7 @@
 #include "Materials.h"
 #include "Lighting.h"
 #include "TextRenderer.h"
+#include "SceneGraphNode.h"
 
 #define REFRESHRATE 16
 
@@ -30,6 +31,7 @@ private:
 	
 	LinkedList* _objectList;
 	ListNode* _objectHead;
+	SceneGraphNode* _sceneGraphRoot;
 
 	//lighting
 	Vector4* _lightPosition;

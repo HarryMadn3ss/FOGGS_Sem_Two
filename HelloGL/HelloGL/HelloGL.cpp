@@ -1,9 +1,9 @@
 #include "HelloGL.h"
-
+#include "tgaLoader.h"
 
 HelloGL::HelloGL(int argc,char* argv[])
 {
-	srand(time(0));
+	srand(time(NULL));
 
 	InitGL(argc, argv);
 	
@@ -39,6 +39,7 @@ void HelloGL::Display()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		
 	_objectList->DrawNode(_objectHead);
+	_sceneGraphRoot->Draw();
 	TextRenderer::Instance()->DrawString("Test string", _textPosition, _textColor);
 		
 	glFlush(); //flushes the scene drawn to the graphics card
@@ -52,11 +53,23 @@ void HelloGL::InitObjects()
 	camera->center.x = 0.0f; camera->center.y = 0.0f; camera->center.z = 0.0f;
 	camera->up.x = 0.0f; camera->up.y = 1.0f; camera->up.z = 0.0f;
 
-	//Mesh* cubeMesh = MeshLoader::Load((char*)"files/txtFiles/cube.txt");
-	std::ifstream inFile("files/OBJFiles/Earth.obj");
-	std::vector<OBJLoaderVertices> cubeMesh = OBJLoader::Instance()->LoadOBJ(inFile);
+
+	// Load models
+	Mesh* rombusMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/Rombus.obj");
+	Mesh* cubeMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/cube.obj");
+	Mesh* pyramidMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/pyramid.obj");
+	Mesh* monkeyMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/Monke.obj");
+	Mesh* ballMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/Sphere.obj");
+	Mesh* saturnMesh = OBJLoader::Instance()->LoadOBJToMesh("files/OBJFiles/Saturn.obj");
+
+
+	// Load textures
 	Texture2D* texture = new Texture2D();
 	texture->Load((char*)"files/textures/Penguins.raw", 512, 512);
+
+	TGALoader* tgaLoader = new TGALoader();
+	Texture2D* earthTGA = tgaLoader->LoadTextureTGA("files/textures/Earth_TEXTURE_CM.tga");
+
 	
 	glEnable(GL_TEXTURE_2D);
 	glEnable(GL_DEPTH_TEST);
@@ -64,7 +77,6 @@ void HelloGL::InitObjects()
 	glCullFace(GL_BACK);
 
 	//material switcher
-	
 	_materialNum = 1;
 
 	//light switch
@@ -74,17 +86,29 @@ void HelloGL::InitObjects()
 	_textPosition = new Vector3;
 	_textColor = new Color;	
 	_textPosition->x = -1.4f; _textPosition->y = -1.0f; _textPosition->z = -1.0f;
-	_textColor->r = 0.0f; _textColor->g = 1.0f; _textColor->b = 0.0f;
+	_textColor->r = 1.0f; _textColor->g = 0.0f; _textColor->b = 1.0f;
 
-	//linked list
+	// Setup linked list
 	_objectList = new LinkedList();
 	_objectHead = nullptr;
 
-	for (int i = 0; i < (OBJECTARRAY); i++)
+	for (int i = 0; i < (OBJECTARRAY / 6); i++)
 	{
 		_objectList->MakeNode(&_objectHead, new Cube(cubeMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(pyramidMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(rombusMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(monkeyMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(ballMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
+		_objectList->MakeNode(&_objectHead, new Cube(saturnMesh, texture, ((rand() % 400) / 10.0f) - 20.0f, ((rand() % 200) / 10.0f) - 10.0f, -((rand() % 1000) / 10.0f)));
 	}
 	
+
+	// Setup SceneGraph
+	_sceneGraphRoot = new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 0, 0, -10 }, Vector3{ 1, 1, 1 }));
+	_sceneGraphRoot->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, 5, 0, 0)));
+	SceneGraphNode* parentPlanet = _sceneGraphRoot->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 10, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
+	parentPlanet->AddChild(new SceneGraphNode(new Cube(ballMesh, earthTGA, Vector3{ 7, 0, 0 }, Vector3{ 0.5f, 0.5f, 0.5f })));
+
 	//variable constructs
 	triRotation = 0.0f;
 	squRotation = 0.0f;
@@ -144,9 +168,8 @@ void HelloGL::Update()
 		camera->center.x, camera->center.y, camera->center.z,
 		camera->up.x, camera->up.y, camera->up.z);
 	
-	glTranslatef(0.0f, 0.0f, -5.0f);
-	
 	_objectList->UpdateNode(_objectHead);
+	_sceneGraphRoot->Update(0);
 	
 	glutPostRedisplay(); //forces the scene to refresh after the update is finished
 		
