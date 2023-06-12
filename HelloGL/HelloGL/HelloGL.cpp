@@ -40,7 +40,7 @@ void HelloGL::Display()
 		
 	_objectList->DrawNode(_objectHead);
 	_sceneGraphRoot->Draw();
-	TextRenderer::Instance()->DrawString("Test string", _textPosition, _textColor);
+	TextRenderer::Instance()->DrawString("HelloGL", _textPosition, _textColor);
 		
 	glFlush(); //flushes the scene drawn to the graphics card
 	glutSwapBuffers();

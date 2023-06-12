@@ -22,10 +22,7 @@ class HelloGL
 {
 protected:
 
-private:
-	float triRotation;
-	float squRotation;
-	float rectRotation;
+private:	
 
 	Camera* camera;
 	
