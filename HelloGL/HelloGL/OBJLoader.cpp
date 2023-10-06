@@ -27,6 +27,12 @@ Mesh* OBJLoader::LoadOBJToMesh(std::string objPath)
 	// Open the .obj file
 	std::ifstream inFile = std::ifstream(objPath.c_str());
 
+	if (!inFile.good())
+	{
+		std::cout << "error with file:" << objPath << std::endl;
+		return nullptr;
+	}
+
 	// Setup vectors for storage.
 	Mesh* resultMesh = new Mesh();
 	std::vector<Vertex>* verts = new std::vector<Vertex>();
